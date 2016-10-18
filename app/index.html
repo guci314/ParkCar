@@ -1,43 +1,46 @@
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>AngularJS 路由实例 - 菜鸟教程</title>
-	</head>
-	<body ng-app='routingDemoApp'>
-
-		<h2>AngularJS 路由应用</h2>
-		<ul>
-			<li>
-				<a href="#/">首页</a>
-			</li>
-			<li>
-				<a href="#/computers">电脑</a>
-			</li>
-			<li>
-				<a href="#/printers">打印机</a>
-			</li>
-			<li>
-				<a href="#/blabla">其他</a>
-			</li>
-		</ul>
-
-		<div ng-view></div>
-		<script src="lib/angular/angular.js"></script>
-		<script src="lib/angular-ui-router/release/angular-ui-router.js"></script>
-		<script>
-			angular.module('routingDemoApp', ['ngRoute']).config(['$routeProvider',
-			function($routeProvider) {
-				$routeProvider.when('/', {
-					template : '这是首页页面'
-				}).when('/computers', {
-					templateUrl: 'views/computers.html'
-				}).when('/printers', {
-					template : '这是打印机页面'
-				}).otherwise({
-					redirectTo : '/'
-				});
-			}]);
-		</script>
-
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css" />
+  </head>
+  <body ng-app="myApp">
+    <div class="container" ng-controller="AppController">
+      <div class="page-header">
+        <h1>A checklist {{test}} </h1>
+      </div>
+      <div class="alert alert-info" role="alert" ng-hide="items &amp;&amp; items.length > 0">
+        There are no items yet.
+      </div>
+      <form class="form-horizontal" role="form" ng-submit="addItem(newItem)">
+        <div class="form-group" ng-repeat="item in items">
+          <div class="checkbox col-xs-9">
+            <label>
+              <input type="checkbox" ng-model="item.checked" ng-change="updateItem(item)"/> {{item.name}}
+            </label>
+          </div>
+          <div class="col-xs-3">
+            <button class="pull-right btn btn-danger" type="button" title="Delete"
+              ng-click="deleteItem(item)">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+          </div>
+        </div>
+        <hr />
+        <div class="input-group">
+          <input type="text" class="form-control" ng-model="newItem" placeholder="Enter the description..." />
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="submit" ng-disabled="!newItem" title="Add">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </span>
+        </div>
+      </form>
+    </div>
+    <script type="text/javascript" src="lib/angular/angular.js"></script>
+    <script type="text/javascript" src="lib/angular-resource/angular-resource.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/lodash/4.16.3/lodash.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="js/controllers.js"></script>
+    <script type="text/javascript" src="js/services.js"></script>
+  </body>
 </html>
